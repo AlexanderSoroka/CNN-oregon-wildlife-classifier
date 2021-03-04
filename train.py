@@ -1,18 +1,3 @@
-
-'''def build_model():
-  inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  x = tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation=tf.keras.layers.ReLU())(inputs)
-  x = tf.keras.layers.MaxPool2D()(x)
-  x = tf.keras.layers.Conv2D(filters=16, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
-  x = tf.keras.layers.MaxPool2D()(x) 
-  x = tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
-  x = tf.keras.layers.MaxPool2D()(x)
-  x = tf.keras.layers.Conv2D(filters=128, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
-  x = tf.keras.layers.Flatten()(x)
-  #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
-  outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
-  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
-
 """This module implements data feeding and training loop to create model
 to classify X-Ray chest images as a lab example for BSU students.
 """
@@ -36,7 +21,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 512
+BATCH_SIZE = 64
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -73,9 +58,15 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(inputs)
+  x = tf.keras.layers.Conv2D(filters=8, kernel_size=5, activation=tf.keras.layers.ReLU())(inputs)
   x = tf.keras.layers.MaxPool2D()(x)
+  x = tf.keras.layers.Conv2D(filters=16, kernel_size=5, activation=tf.keras.layers.ReLU())(x)
+  x = tf.keras.layers.MaxPool2D()(x) 
+  x = tf.keras.layers.Conv2D(filters=64, kernel_size=5, activation=tf.keras.layers.ReLU())(x)
+  x = tf.keras.layers.MaxPool2D()(x)
+  x = tf.keras.layers.Conv2D(filters=128, kernel_size=5, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.Flatten()(x)
+  x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
