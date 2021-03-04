@@ -56,7 +56,7 @@ def create_dataset(filenames, batch_size):
     .prefetch(tf.data.AUTOTUNE)
 
 
-def build_model():
+'''def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
   x = tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation=tf.keras.layers.ReLU())(inputs)
   x = tf.keras.layers.MaxPool2D()(x)
@@ -67,6 +67,14 @@ def build_model():
   x = tf.keras.layers.Conv2D(filters=128, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.Flatten()(x)
   #x = tf.keras.layers.Dense(100, activation=tf.keras.layers.ReLU())(x)
+  outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
+  return tf.keras.Model(inputs=inputs, outputs=outputs)'''
+
+def build_model():
+  inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
+  x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(inputs)
+  x = tf.keras.layers.MaxPool2D()(x)
+  x = tf.keras.layers.Flatten()(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
