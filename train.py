@@ -83,7 +83,7 @@ def main():
   model = build_model()
 
   model.compile(
-    optimizer=tf.optimizers.SGD(learning_rate=0.001),
+    optimizer=tf.optimizers.SGD(learning_rate=0.01),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
