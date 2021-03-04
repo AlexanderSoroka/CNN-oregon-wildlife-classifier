@@ -28,3 +28,8 @@ python train.py --train '<dataset root path>/train*'
 ```
 
 5. Modify model and have fun
+
+
+![84U2bQxCXMs](https://user-images.githubusercontent.com/61012068/109959887-25559a00-7cf9-11eb-863f-eeb4d81102a2.jpg)
+kekw
+![vOzQHKCMhD4](https://user-images.githubusercontent.com/61012068/109959903-28e92100-7cf9-11eb-90d7-098729f73df7.jpg)
