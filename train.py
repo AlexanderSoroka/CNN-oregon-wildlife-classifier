@@ -58,11 +58,11 @@ def create_dataset(filenames, batch_size):
 
 def build_model():
   inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
-  x = tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=tf.keras.layers.ReLU())(inputs)
+  x = tf.keras.layers.Conv2D(filters=64, kernel_size=5, activation=tf.keras.layers.ReLU())(inputs)
   x = tf.keras.layers.MaxPool2D()(x)
-  x = tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
+  x = tf.keras.layers.Conv2D(filters=64, kernel_size=5, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.MaxPool2D()(x) 
-  x = tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
+  x = tf.keras.layers.Conv2D(filters=64, kernel_size=5, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.MaxPool2D()(x)
   #x = tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.Flatten()(x)
@@ -84,7 +84,7 @@ def main():
   model = build_model()
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.001),
+    optimizer=tf.optimizers.Adam(lr=0.007),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
