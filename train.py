@@ -67,7 +67,7 @@ def build_model():
   x = tf.keras.layers.MaxPool2D()(x)
   x = tf.keras.layers.Conv2D(filters=128, kernel_size=3, activation=tf.keras.layers.ReLU())(x)
   x = tf.keras.layers.Flatten()(x)
-  x = tf.keras.layers.Dense(94, activation=tf.keras.layers.ReLU())(x)
+  x = tf.keras.layers.Dense(168, activation=tf.keras.layers.ReLU())(x)
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
