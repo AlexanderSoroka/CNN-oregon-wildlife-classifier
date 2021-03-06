@@ -21,7 +21,7 @@ for gpu in gpus:
 
 
 LOG_DIR = 'logs'
-BATCH_SIZE = 512
+BATCH_SIZE = 256
 NUM_CLASSES = 20
 RESIZE_TO = 224
 TRAIN_SIZE = 12786
@@ -83,7 +83,7 @@ def main():
   model = build_model()
 
   model.compile(
-    optimizer=tf.optimizers.SGD(lr=1),
+    optimizer=tf.optimizers.Adam(lr=0.001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
