@@ -64,7 +64,7 @@ def build_model():
   print('\n\n\n\n     ',tf.shape(x))
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   print('\n\n\n\n     ',outputs)
-  print('\n\n\n\n     ',tf.shape(ouputs))
+  print('\n\n\n\n     ',tf.shape(outputs))
   return tf.keras.Model(inputs=inputs, outputs=outputs)
 
 '''def build_model():
