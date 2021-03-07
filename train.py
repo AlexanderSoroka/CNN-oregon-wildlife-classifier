@@ -61,7 +61,7 @@ def build_model():
   x = tf.keras.layers.MaxPool2D()(x)
   x = tf.keras.layers.Flatten()(x)
   print('\n\n\n\n     ',x)
-  print('\n\n\n\n     ',tf.shape(t))
+  print('\n\n\n\n     ',tf.shape(x))
   outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
   print('\n\n\n\n     ',outputs)
   print('\n\n\n\n     ',tf.shape(ouputs))
