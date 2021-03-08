@@ -69,6 +69,7 @@ flags.DEFINE_string('output', default=None, help='Output directory')
 flags.DEFINE_integer('shards', 10, 'Number of shards per split of TFRecord files.')
 flags.DEFINE_integer('num_threads', 2, 'Number of threads to preprocess the images.')
 flags.DEFINE_string('labels_file', 'labels', 'Labels file')
+flags.DEFINE_integer('shuffle', default=10, help='How many times apply shuffle procedure')
 
 FLAGS = flags.FLAGS
 
@@ -261,6 +262,7 @@ def _find_image_files(data_dir, labels_file):
     print('Determining list of input files and labels from %s.' % data_dir)
     unique_labels = [l.strip() for l in tf.io.gfile.GFile(labels_file, 'r').readlines()]
 
+    print(f'Unique labels: {unique_labels}')
     labels = []
     filenames = []
     texts = []
@@ -283,18 +285,16 @@ def _find_image_files(data_dir, labels_file):
     return filenames, texts, labels
 
 
-def _shuffle(filenames, texts, labels, train_split):
+def _shuffle(filenames, texts, labels):
     # Shuffle the ordering of all image files in order to guarantee
     # random ordering of the images with respect to label in the
     # saved TFRecord files. Make the randomization repeatable.
     shuffled_index = list(range(len(filenames)))
-    random.seed(12345)
     random.shuffle(shuffled_index)
 
     return [filenames[i] for i in shuffled_index], \
            [texts[i] for i in shuffled_index], \
-           [labels[i] for i in shuffled_index], \
-           [train_split[i] for i in shuffled_index]
+           [labels[i] for i in shuffled_index]
 
 
 def main(_):
@@ -309,6 +309,9 @@ def main(_):
 
     # Get all files and split it to validation and training data
     names, texts, labels = _find_image_files(os.path.join(FLAGS.input), FLAGS.labels_file)
+    for _ in range(FLAGS.shuffle):
+      names, texts, labels = _shuffle(names, texts, labels)
+
     _process_image_files('train', names, texts, labels, FLAGS.shards)
     print(f'Dataset size: {len(names)}')
 
